@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,12 +18,20 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name="rolacceso")
+@Table(name="rol_acceso")
 public class RolAcceso {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
-	@Column(name="id")
-	private Long id;
+	@Column(name="id_rol_acceso")
+	private Long id_rol_acceso;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_acceso", nullable = false)
+	private Acceso acceso;
+
+	@ManyToOne
+	@JoinColumn(name = "id_rol", nullable = false)
+	private Rol rol;
 	
 }

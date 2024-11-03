@@ -1,10 +1,19 @@
 package com.example.Proyecto.entity;
 
+import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,13 +30,28 @@ public class Practicante {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
-	@Column(name="id")
-	private Long id;
+	@Column(name="id_practicante")
+	private Long id_practicante;
 	
-	@Column(name="horasacumuladas")
-private String horasacumuladas;
+	@Column(name="horas_acumuladas")
+private String horas_acumuladas;
 	
-	@Column(name="horasps")
-private String horasps;
+	@Column(name="horas_ps")
+private String horas_ps;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_plan_carrera", nullable = false)
+	private PlanCarrera plan_carrera;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_estado", nullable = false)
+	private EstadoPPP estado_ppp;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "practicante")
+	@JsonIgnore
+	private Set<Solicitud> solicitud;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_persona", nullable = false)
+	private Persona persona;
 }

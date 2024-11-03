@@ -23,25 +23,34 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name="linea")
-public class Linea {
+@Table(name="estado_ppp")
+public class EstadoPPP {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
-	@Column(name="id_linea")
-	private Long id_linea;
-	
-	@Column(name="nombre")
-private String nombre;
+	@Column(name="id_estado")
+	private Long id_estado;
 	
 	@Column(name="estado")
 private String estado;
-
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "linea")
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "estado_ppp")
+	@JsonIgnore
+	private Set<Empresa> empresa;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "estado_ppp")
+	@JsonIgnore
+	private Set<PlanPractica> plan_practica;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "estado_ppp")
+	@JsonIgnore
+	private Set<Usuario> usuario;
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "estado_ppp")
 	@JsonIgnore
 	private Set<Solicitud> solicitud;
 	
-	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "linea")
+	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER, mappedBy = "estado_ppp")
 	@JsonIgnore
-	private Set<PlanPractica> plan_practica;
+	private Set<Practicante> practicante;
 }

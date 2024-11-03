@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,18 +18,21 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-@Table(name="historialnotificaciones")
+@Table(name="historial_notificaciones")
 public class HistorialNotificaciones {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	
-	@Column(name="id")
-	private Long id;
+	@Column(name="id_historial")
+	private Long id_historial;
 	
-	@Column(name="fechaenvio")
-private String fechaenvio;
+	@Column(name="fecha_envio")
+private String fecha_envio;
 	
-	@Column(name="fechavista")
-private String fechavista;
+	@Column(name="fecha_vista")
+private String fecha_vista;
 	
+	@ManyToOne
+	@JoinColumn(name = "id_notificacion", nullable = false)
+	private Notificaciones notificaciones;
 }
